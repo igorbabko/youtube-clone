@@ -1,22 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <TheHeader />
+  <TheSidebarSmall />
+  <TheSidebar />
+  <TheSidebarMobile />
+  <TheCategories />
+  <TheVideos />
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import TheHeader from './components/TheHeader.vue'
+import TheSidebarSmall from './components/TheSidebarSmall.vue'
+import TheSidebar from './components/TheSidebar.vue'
+import TheSidebarMobile from './components/TheSidebarMobile.vue'
+import TheCategories from './components/TheCategories.vue'
+import TheVideos from './components/TheVideos.vue'
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+export default {
+  components: {
+    TheHeader,
+    TheSidebarSmall,
+    TheSidebar,
+    TheSidebarMobile,
+    TheCategories,
+    TheVideos
+  }
 }
-</style>
+</script>
