@@ -106,14 +106,9 @@
 
 <script>
 export default {
-  props: {
-    isOpen: Boolean
-  },
-
   computed: {
     classes () {
       return [
-        this.isOpen ? 'md:block' : 'hidden',
         'min-h-screen',
         'overflow-auto',
         'fixed',
