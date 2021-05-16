@@ -1,10 +1,7 @@
 <template>
   <div class="relative">
     <BaseTooltip text="Settings">
-      <button
-        @click="isOpen = !isOpen"
-        class="relative p-2 focus:outline-none"
-      >
+      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
         <BaseIcon name="dotsVertical" class="w-5 h-5" />
       </button>
     </BaseTooltip>
@@ -21,7 +18,7 @@
         ref="dropdown"
         @keydown.esc="isOpen = false"
         tabindex="-1"
-        class="absolute top-9 -right-full sm:right-0 bg-white w-72 border border-t-0 focus:outline-none"
+        :class="dropdownClasses"
       >
         <section class="py-2 border-b">
           <ul>
@@ -62,6 +59,18 @@ export default {
   data () {
     return {
       isOpen: false,
+      dropdownClasses: [
+        'z-10',
+        'absolute',
+        'top-9',
+        '-right-full',
+        'sm:right-0',
+        'bg-white',
+        'w-72',
+        'border',
+        'border-t-0',
+        'focus:outline-none'
+      ],
       listItems: [
         {
           label: 'Appearance: Light',
