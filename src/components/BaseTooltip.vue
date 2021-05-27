@@ -25,18 +25,15 @@
 export default {
   props: {
     text: String,
-    top: Boolean
+    top: Boolean,
+    right: Boolean,
+    left: Boolean
   },
 
   data () {
     return {
-      isShown: false
-    }
-  },
-
-  computed: {
-    classes () {
-      return [
+      isShown: false,
+      classes: [
         'bg-gray-600',
         'bg-opacity-80',
         'rounded-sm',
@@ -45,11 +42,25 @@ export default {
         'whitespace-nowrap',
         'p-2',
         'transform',
-        '-translate-x-1/2',
         'absolute',
-        'left-1/2',
-        this.top ? 'bottom-12' : 'top-14'
+        ...this.getPositionClasses()
       ]
+    }
+  },
+
+  methods: {
+    getPositionClasses () {
+      const topClass = this.top ? 'bottom-12' : 'top-14'
+
+      if (this.right) {
+        return [topClass, 'left-0']
+      }
+
+      if (this.left) {
+        return [topClass, 'right-0']
+      }
+
+      return [topClass, 'left-1/2', '-translate-x-1/2']
     }
   }
 }
