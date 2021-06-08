@@ -11,8 +11,9 @@
         <LogoMain />
       </div>
     </div>
-    <TheSearchMobile />
+    <TheSearchMobile v-if="isMobileSearchShown" @close="closeMobileSearch" />
     <div
+      v-else
       class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 flex-1 lg:px-0 lg:w-1/2 max-w-screen-md"
     >
       <TheSearch />
@@ -31,7 +32,10 @@
         </button>
       </BaseTooltip>
       <BaseTooltip text="Search">
-        <button class="sm:hidden p-2 focus:outline-none">
+        <button
+          @click.stop="isMobileSearchActive = true"
+          class="sm:hidden p-2 focus:outline-none"
+        >
           <BaseIcon name="search" class="w-5 h-5" />
         </button>
       </BaseTooltip>
@@ -66,6 +70,41 @@ export default {
 
   emits: {
     toggleSidebar: null
+  },
+
+  data () {
+    return {
+      isSmallScreen: false,
+      isMobileSearchActive: false
+    }
+  },
+
+  computed: {
+    isMobileSearchShown () {
+      return this.isSmallScreen && this.isMobileSearchActive
+    }
+  },
+
+  mounted () {
+    this.onResize()
+
+    window.addEventListener('resize', this.onResize)
+  },
+
+  methods: {
+    onResize () {
+      if (window.innerWidth < 640) {
+        this.isSmallScreen = true
+        return
+      }
+
+      this.closeMobileSearch()
+      this.isSmallScreen = false
+    },
+
+    closeMobileSearch () {
+      this.isMobileSearchActive = false
+    }
   }
 }
 </script>

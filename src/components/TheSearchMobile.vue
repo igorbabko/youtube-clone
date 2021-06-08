@@ -1,7 +1,7 @@
 <template>
   <div class="fixed bg-white w-full h-14 p-3 z-10 flex">
-    <BaseTooltip text="Back" right>
-      <button class="p-2 focus:outline-none">
+    <BaseTooltip @click="$emit('close')" text="Back" right>
+      <button class="mr-2 p-2 focus:outline-none">
         <BaseIcon name="arrowLeft" class="w-5 h-5" />
       </button>
     </BaseTooltip>
@@ -24,6 +24,22 @@ export default {
     BaseIcon,
     BaseTooltip,
     TheSearch
+  },
+
+  mounted () {
+    window.addEventListener('click', this.onClick)
+  },
+
+  beforeUnmount () {
+    window.removeEventListener('click', this.onClick)
+  },
+
+  methods: {
+    onClick (event) {
+      if (!this.$el.contains(event.target)) {
+        this.$emit('close')
+      }
+    }
   }
 }
 </script>
