@@ -60,7 +60,7 @@ export default {
     return {
       isOpen: false,
       dropdownClasses: [
-        'z-10',
+        'z-20',
         'absolute',
         'top-9',
         '-right-full',
