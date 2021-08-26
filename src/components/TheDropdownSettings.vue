@@ -20,14 +20,11 @@
         tabindex="-1"
         :class="dropdownClasses"
       >
-        <TheDropdownSettingsMain
-          v-if="selectedMenu === 'main'"
-          @select-menu="showSelectedMenu"
-        />
         <TheDropdownSettingsAppearance
-          v-else-if="selectedMenu === 'appearance'"
+          v-if="selectedMenu === 'appearance'"
           @select-menu="showSelectedMenu"
         />
+        <TheDropdownSettingsMain v-else @select-menu="showSelectedMenu" />
       </div>
     </transition>
   </div>
@@ -81,9 +78,8 @@ export default {
   },
 
   methods: {
-    showSelectedMenu (selectedMenu) {
+    showSelectedMenu (selectedMenu = 'main') {
       this.selectedMenu = selectedMenu
-
       this.$refs.dropdown.focus()
     },
 

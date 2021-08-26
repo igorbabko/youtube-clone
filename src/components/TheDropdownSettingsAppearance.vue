@@ -34,6 +34,8 @@ export default {
     DropdownSettingsListItem
   },
 
+  emits: ['select-menu'],
+
   data () {
     return {
       selectedThemeId: 0,
