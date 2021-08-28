@@ -94,7 +94,7 @@ export default {
     close () {
       this.isOpen = false
 
-      setTimeout(() => this.selectedMenu = 'main', 75)
+      setTimeout(() => this.selectedMenu = 'main', 100)
     }
   }
 }
