@@ -14,9 +14,9 @@
     </div>
     <ul>
       <DropdownSettingsListItem
-        v-for="(theme, themeId) in themes"
+        v-for="themeName, themeId in themes"
         :key="themeId"
-        :label="theme"
+        :label="themeName"
         :active="themeId === selectedThemeId"
         @click="selectedThemeId = themeId"
       />
