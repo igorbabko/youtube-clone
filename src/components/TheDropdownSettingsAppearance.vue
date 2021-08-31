@@ -1,6 +1,9 @@
 <template>
   <section class="flex border-b border-gray-200 text-black">
-    <button class="px-3 focus:outline-none">
+    <button
+      @click.stop="$emit('select-menu', 'main')"
+      class="px-3 focus:outline-none"
+    >
       <BaseIcon name="arrowLeft" />
     </button>
     <span class="py-3">Appearance</span>
