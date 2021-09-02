@@ -50,6 +50,13 @@ export default {
     return {
       isOpen: false,
       selectedMenu: 'main',
+      menuComponentNames: {
+        main: 'TheDropdownSettingsMain',
+        appearance: 'TheDropdownSettingsAppearance',
+        language: 'TheDropdownSettingsLanguage',
+        location: 'TheDropdownSettingsLocation',
+        restricted_mode: 'TheDropdownSettingsRestrictedMode'
+      },
       dropdownClasses: [
         'z-10',
         'absolute',
