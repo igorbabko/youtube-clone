@@ -15,7 +15,9 @@
     <ul>
       <DropdownSettingsListItem
         :label="listItems[8].label"
+        :icon="listItems[8].icon"
         :with-sub-menu="listItems[8].withSubMenu"
+        @click.stop="$emit('select-menu', listItems[8].id)"
       />
     </ul>
   </section>
