@@ -158,7 +158,7 @@ export default {
         return 'bottom-9'
       }
 
-      return 'buttom-auto'
+      return 'bottom-auto'
     },
 
     getLeftClass (event) {
