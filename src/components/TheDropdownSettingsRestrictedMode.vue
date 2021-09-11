@@ -14,7 +14,7 @@
       <span class="uppercase mr-2">Activate restricted mode</span>
       <input
         type="checkbox"
-        :checked="selectedOptions.restrictedMode"
+        :checked="selectedOptions.restrictedMode.enabled"
         @input="selectOption"
       />
     </div>
@@ -35,10 +35,10 @@ export default {
 
   methods: {
     selectOption ($event) {
-      this.$emit('select-option', {
-        name: 'restrictedMode',
-        value: $event.target.checked
-      })
+      const enabled = $event.target.checked
+      const value = { enabled, text: enabled ? 'On' : 'Off' }
+
+      this.$emit('select-option', { name: 'restrictedMode', value })
     }
   }
 }
