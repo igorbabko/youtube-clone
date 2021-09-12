@@ -1,8 +1,5 @@
 <template>
-  <DropdownSettingsHeader
-    title="Choose your location"
-    @back="$emit('select-menu', 'main')"
-  />
+  <DropdownSettingsHeader title="Choose your location" @back="$emit('close')" />
   <section class="py-2">
     <ul class="max-h-96 overflow-auto">
       <DropdownSettingsListItem
@@ -28,7 +25,7 @@ export default {
 
   props: ['selectedOptions'],
 
-  emits: ['select-menu', 'select-option'],
+  emits: ['close', 'select-option'],
 
   data () {
     return {

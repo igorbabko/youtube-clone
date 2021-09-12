@@ -21,10 +21,16 @@
         :class="dropdownClasses"
       >
         <component
+          v-if="selectedMenu"
           :is="menu"
-          @select-menu="showSelectedMenu"
-          @select-option="selectOption"
           :selected-options="selectedOptions"
+          @select-option="selectOption"
+          @close="closeMenu"
+        />
+        <TheDropdownSettingsMain
+          v-else
+          :menu-items="menuItems"
+          @select-menu="selectMenu"
         />
       </div>
     </transition>
@@ -54,7 +60,7 @@ export default {
   data () {
     return {
       isOpen: false,
-      selectedMenu: 'main',
+      selectedMenu: null,
       selectedOptions: {
         theme: {
           id: 0,
@@ -91,14 +97,72 @@ export default {
   computed: {
     menu () {
       const menuComponentNames = {
-        main: 'TheDropdownSettingsMain',
         appearance: 'TheDropdownSettingsAppearance',
         language: 'TheDropdownSettingsLanguage',
         location: 'TheDropdownSettingsLocation',
         restricted_mode: 'TheDropdownSettingsRestrictedMode'
       }
 
-      return menuComponentNames[this.selectedMenu]
+      return this.selectedMenu ? menuComponentNames[this.selectedMenu.id] : null
+    },
+
+    menuItems () {
+      return [
+        {
+          id: 'appearance',
+          label: 'Appearance: ' + this.selectedOptions.theme.text,
+          icon: 'sun',
+          withSubMenu: true
+        },
+        {
+          id: 'language',
+          label: 'Language: ' + this.selectedOptions.language.text,
+          icon: 'translate',
+          withSubMenu: true
+        },
+        {
+          id: 'location',
+          label: 'Location: ' + this.selectedOptions.location.text,
+          icon: 'globeAlt',
+          withSubMenu: true
+        },
+        {
+          id: 'settings',
+          label: 'Settings',
+          icon: 'cog',
+          withSubMenu: false
+        },
+        {
+          id: 'your_data_in_youtube',
+          label: 'Your data in YouTube',
+          icon: 'shieldCheck',
+          withSubMenu: false
+        },
+        {
+          id: 'help',
+          label: 'Help',
+          icon: 'questionMarkCircle',
+          withSubMenu: false
+        },
+        {
+          id: 'send_feedback',
+          label: 'Send feedback',
+          icon: 'chatAlt',
+          withSubMenu: false
+        },
+        {
+          id: 'keyboard_shortcuts',
+          label: 'Keyboard shortcuts',
+          icon: 'calculator',
+          withSubMenu: false
+        },
+        {
+          id: 'restricted_mode',
+          label: 'Restricted Mode: ' + this.selectedOptions.restrictedMode.text,
+          icon: null,
+          withSubMenu: true
+        }
+      ]
     }
   },
 
@@ -117,16 +181,6 @@ export default {
   },
 
   methods: {
-    showSelectedMenu (selectedMenu) {
-      this.selectedMenu = selectedMenu
-
-      this.$refs.dropdown.focus()
-    },
-
-    selectOption(option) {
-      this.selectedOptions[option.name] = option.value
-    },
-
     toggle () {
       this.isOpen ? this.close() : this.open()
     },
@@ -138,7 +192,21 @@ export default {
     close () {
       this.isOpen = false
 
-      setTimeout(() => (this.selectedMenu = 'main'), 100)
+      setTimeout(this.closeMenu, 100)
+    },
+
+    selectMenu (menu) {
+      this.selectedMenu = menu
+
+      this.$refs.dropdown.focus()
+    },
+
+    closeMenu () {
+      this.selectMenu(null)
+    },
+
+    selectOption (option) {
+      this.selectedOptions[option.name] = option.value
     }
   }
 }
