@@ -17,7 +17,8 @@
     </div>
     <template v-if="selectedOptions.restrictedMode.enabled">
       <p>
-        Restricted Mode lock prevents others from changing the Restricted Mode settings on this browser.
+        Restricted Mode lock prevents others from changing the Restricted Mode
+        settings on this browser.
       </p>
       <p>
         Lock Restricted Mode on this browser

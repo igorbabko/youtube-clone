@@ -10,6 +10,12 @@ export default {
   props: ['selectedOptions'],
 
   emits: ['close', 'select-option'],
+  
+  data () {
+    return {
+      optionName: null
+    }
+  },
 
   data () {
     return {
