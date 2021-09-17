@@ -1,13 +1,25 @@
 <template>
-  <input type="text" placeholder="Search" :class="classes" />
+  <div class="relative w-full">
+    <input type="text" placeholder="Search" :class="classes" />
+    <button class="absolute top-0 right-0 h-full px-3 focus:outline-none">
+      <BaseIcon name="x" class="w-5 w-5" />
+    </button>
+  </div>
 </template>
 
 <script>
+import BaseIcon from './BaseIcon.vue'
+
 export default {
+  components: {
+    BaseIcon
+  },
+
   data () {
     return {
       classes: [
         'w-full',
+        'h-full',
         'px-3',
         'shadow-inner',
         'rounded-bl-sm',
