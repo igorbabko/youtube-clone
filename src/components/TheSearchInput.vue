@@ -25,7 +25,7 @@ export default {
     BaseIcon
   },
 
-  props: ['query'],
+  props: ['query', 'queryModifiers'],
 
   emits: ['update:query'],
 
