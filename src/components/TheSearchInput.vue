@@ -4,15 +4,14 @@
       type="text"
       placeholder="Search"
       :class="classes"
-      :value="query"
-      @input="updateQuery($event.target.value)"
+      v-model="searchQuery"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
       v-show="query"
-      @click="updateQuery('')"
+      @click="searchQuery = ''"
     >
-      <BaseIcon name="x" class="w-5 w-5" />
+      <BaseIcon name="x" class="w-5 h-5" />
     </button>
   </div>
 </template>
@@ -46,15 +45,21 @@ export default {
     }
   },
 
-  mounted () {
-    if (window.innerWidth < 640) {
-      this.$el.focus()
+  computed: {
+    searchQuery: {
+      get () {
+        return this.query
+      },
+
+      set (searchQuery) {
+        this.$emit('update:query', searchQuery)
+      }
     }
   },
 
-  methods: {
-    updateQuery (query) {
-      this.$emit('update:query', query)
+  mounted () {
+    if (window.innerWidth < 640) {
+      this.$el.focus()
     }
   }
 }
