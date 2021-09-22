@@ -5,12 +5,12 @@
       placeholder="Search"
       :class="classes"
       :value="query"
-      @input="$emit('update:query', $event.target.value)"
+      @input="updateQuery($event.target.value)"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
       v-show="query"
-      @click="$emit('update:query', '')"
+      @click="updateQuery('')"
     >
       <BaseIcon name="x" class="w-5 w-5" />
     </button>
@@ -49,6 +49,12 @@ export default {
   mounted () {
     if (window.innerWidth < 640) {
       this.$el.focus()
+    }
+  },
+
+  methods: {
+    updateQuery (query) {
+      this.$emit('update:query', query)
     }
   }
 }
