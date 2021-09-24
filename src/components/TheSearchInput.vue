@@ -3,17 +3,21 @@
     <input
       type="text"
       placeholder="Search"
-      v-bind="$attrs"
+      ref="input"
       :class="classes"
       :value="query"
       @input="updateQuery($event.target.value)"
+      @focus="setState(true)"
+      @blur="setState(false)"
+      @click="setState(true)"
+      @keyup.esc="handleEsc"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
       v-show="query"
       @click="updateQuery('')"
     >
-      <BaseIcon name="x" class="w-5 w-5" />
+      <BaseIcon name="x" class="w-5 h-5" />
     </button>
   </div>
 </template>
@@ -30,10 +34,11 @@ export default {
 
   props: ['query'],
 
-  emits: ['update:query'],
+  emits: ['update:query', 'change-state'],
 
   data () {
     return {
+      isActive: false,
       classes: [
         'w-full',
         'h-full',
@@ -58,6 +63,23 @@ export default {
   methods: {
     updateQuery (query) {
       this.$emit('update:query', query)
+      this.$emit('change-state', this.isActive)
+    },
+
+    setState (isActive) {
+      this.isActive = isActive
+
+      this.$emit('change-state', this.isActive)
+    },
+
+    handleEsc () {
+      if (this.isActive) {
+        this.isActive = false
+
+        this.$emit('change-state', this.isActive)
+      } else {
+        this.$refs.input.blur()
+      }
     }
   }
 }
