@@ -17,7 +17,7 @@
       v-show="query"
       @click="clear"
     >
-      <BaseIcon name="x" class="w-5 w-5" />
+      <BaseIcon name="x" class="w-5 h-5" />
     </button>
   </div>
 </template>
@@ -64,6 +64,10 @@ export default {
     document.removeEventListener('keydown', this.onKeydown)
   },
 
+  beforeUnmount () {
+    document.removeEventListener('keydown', this.onKeydown)
+  },
+
   methods: {
     onKeydown (event) {
       const isInputFocused = this.$refs.input === document.activeElement
@@ -102,7 +106,7 @@ export default {
 
       this.$refs.input.setSelectionRange(end, end)
     },
-
+    
     clear () {
       this.$refs.input.focus()
 
