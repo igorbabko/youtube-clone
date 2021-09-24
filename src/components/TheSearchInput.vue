@@ -58,9 +58,21 @@ export default {
     if (window.innerWidth < 640) {
       this.$el.focus()
     }
+
+    document.addEventListener('keydown', this.onKeydown)
   },
 
   methods: {
+    onKeydown (event) {
+      const isInputFocused = this.$refs.input === document.activeElement
+
+      if (event.code === 'Slash' && !isInputFocused) {
+        event.preventDefault()
+
+        this.$refs.input.focus()
+      }
+    },
+
     updateQuery (query) {
       this.$emit('update:query', query)
       this.$emit('change-state', this.isActive)
