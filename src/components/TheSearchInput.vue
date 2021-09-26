@@ -73,13 +73,19 @@ export default {
     },
 
     handleEsc () {
-      if (this.isActive) {
-        this.isActive = false
+      this.removeSelection()
 
-        this.$emit('change-state', this.isActive)
+      if (this.isActive && this.hasResults) {
+        this.setState(false)
       } else {
         this.$refs.input.blur()
       }
+    },
+
+    removeSelection () {
+      const end = this.$refs.input.value.length
+
+      this.$refs.input.setSelectionRange(end, end)
     }
   }
 }
