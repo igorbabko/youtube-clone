@@ -4,6 +4,7 @@
       <TheSearchInput
         v-model:query="query"
         @change-state="toggleSearchResults"
+        :has-results="results.length"
       />
       <TheSearchResults v-show="isSearchResultsShown" :results="results" />
     </div>

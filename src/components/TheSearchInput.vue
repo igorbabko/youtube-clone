@@ -32,7 +32,7 @@ export default {
     BaseIcon
   },
 
-  props: ['query'],
+  props: ['query', 'hasResults'],
 
   emits: ['update:query', 'change-state'],
 
