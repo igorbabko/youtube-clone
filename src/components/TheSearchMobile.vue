@@ -26,10 +26,6 @@ export default {
     TheSearch
   },
 
-  props: ['searchQuery'],
-
-  emits: ['update-search-query'],
-
   mounted () {
     window.addEventListener('click', this.onClick)
   },
