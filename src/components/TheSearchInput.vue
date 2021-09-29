@@ -15,7 +15,7 @@
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
       v-show="query"
-      @click="updateQuery('')"
+      @click="clear"
     >
       <BaseIcon name="x" class="w-5 w-5" />
     </button>
@@ -26,8 +26,6 @@
 import BaseIcon from './BaseIcon.vue'
 
 export default {
-  inheritAttrs: false,
-
   components: {
     BaseIcon
   },
@@ -56,11 +54,27 @@ export default {
 
   mounted () {
     if (window.innerWidth < 640) {
-      this.$el.focus()
+      this.$refs.input.focus()
     }
+
+    document.addEventListener('keydown', this.onKeydown)
+  },
+
+  beforeUnmount () {
+    document.removeEventListener('keydown', this.onKeydown)
   },
 
   methods: {
+    onKeydown (event) {
+      const isInputFocused = this.$refs.input === document.activeElement
+
+      if (event.code === 'Slash' && !isInputFocused) {
+        event.preventDefault()
+
+        this.$refs.input.focus()
+      }
+    },
+
     updateQuery (query) {
       this.$emit('update:query', query)
 
@@ -87,6 +101,12 @@ export default {
       const end = this.$refs.input.value.length
 
       this.$refs.input.setSelectionRange(end, end)
+    },
+
+    clear () {
+      this.$refs.input.focus()
+
+      this.updateQuery('')
     }
   }
 }
