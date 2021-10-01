@@ -102,7 +102,7 @@ export default {
 
       this.$refs.input.setSelectionRange(end, end)
     },
-    
+
     clear () {
       this.$refs.input.focus()
 

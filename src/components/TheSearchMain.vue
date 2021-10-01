@@ -12,13 +12,11 @@
 <script>
 import BaseIcon from './BaseIcon.vue'
 import BaseTooltip from './BaseTooltip.vue'
-import TheSearch from './TheSearch.vue'
 
 export default {
   components: {
     BaseIcon,
-    BaseTooltip,
-    TheSearch
+    BaseTooltip
   },
 
   data () {
