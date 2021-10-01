@@ -5,7 +5,7 @@
         <BaseIcon name="arrowLeft" class="w-5 h-5" />
       </button>
     </BaseTooltip>
-    <TheSearch />
+    <slot />
     <BaseTooltip text="Search with your voice" left>
       <button class="p-2 focus:outline-none">
         <BaseIcon name="microphone" class="w-5 h-5" />
