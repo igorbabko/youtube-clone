@@ -73,6 +73,10 @@ export default {
 
   watch: {
     query (query) {
+      if (query === '') {
+        this.toggleSearchResults(false)
+      }
+      
       this.$emit('update-search-query', query)
     }
   },
