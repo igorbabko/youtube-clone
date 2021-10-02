@@ -10,6 +10,7 @@
       @focus="setState(true)"
       @click.stop="setState(true)"
       @keyup.esc="handleEsc"
+      @keydown.enter="handleEnter"
     />
     <button
       class="absolute top-0 right-0 h-full px-3 focus:outline-none"
@@ -94,6 +95,14 @@ export default {
       } else {
         this.$refs.input.blur()
       }
+    },
+    
+    handleEnter () {
+      this.setState(false)
+
+      this.$refs.input.blur()
+      
+      this.$emit('enter')
     },
 
     removeSelection () {

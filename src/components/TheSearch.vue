@@ -9,6 +9,7 @@
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
         @keydown.up.prevent
+        @enter="selectSearchResult(activeSearchResultId)"
       />
       <TheSearchResults
         v-show="isSearchResultsShown"
