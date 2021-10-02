@@ -96,6 +96,14 @@ export default {
         this.$refs.input.blur()
       }
     },
+    
+    handleEnter () {
+      this.setState(false)
+
+      this.$refs.input.blur()
+      
+      this.$emit('enter')
+    },
 
     handleEnter () {
       this.setState(false)
