@@ -76,7 +76,7 @@ export default {
       if (query === '') {
         this.toggleSearchResults(false)
       }
-      
+
       this.$emit('update-search-query', query)
     }
   },
@@ -108,7 +108,8 @@ export default {
     },
 
     toggleSearchResults (isSearchInputActive) {
-      this.isSearchResultsShown = isSearchInputActive && this.results.length
+      this.isSearchResultsShown =
+        isSearchInputActive && this.query !== '' && this.results.length > 0
     },
 
     handlePreviousSearchResult () {
