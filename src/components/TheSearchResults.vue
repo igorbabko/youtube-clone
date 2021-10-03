@@ -1,8 +1,8 @@
 <template>
   <div :class="classes">
     <ul>
-      <li v-for="result in results" :key="result" :class="itemClasses">
-        {{ result }}
+      <li v-for="(text, id) in results" :key="text" :class="itemClasses(id)">
+        {{ text }}
       </li>
     </ul>
     <a href="#" :class="reportLinkClasses">Report search predictions</a>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ['results'],
+  props: ['results', 'activeResultId'],
 
   data () {
     return {
@@ -26,14 +26,6 @@ export default {
         'shadow-md',
         'pt-4'
       ],
-      itemClasses: [
-        'hover:bg-gray-100',
-        'text-black',
-        'px-3',
-        'py-1',
-        'select-none',
-        'truncate'
-      ],
       reportLinkClasses: [
         'w-full',
         'inline-block',
@@ -43,6 +35,19 @@ export default {
         'text-gray-500',
         'hover:text-black',
         'pr-2'
+      ]
+    }
+  },
+
+  computed: {
+    itemClasses () {
+      return resultId => [
+        resultId === this.activeResultId ? 'bg-gray-100' : 'hover:bg-gray-100',
+        'text-black',
+        'px-3',
+        'py-1',
+        'select-none',
+        'truncate'
       ]
     }
   }
