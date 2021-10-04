@@ -117,6 +117,8 @@ export default {
       } else {
         this.activeSearchResultId--
       }
+
+      this.updateQueryWithSearchResult()
     },
 
     makeNextSearchResultActive () {
@@ -127,6 +129,16 @@ export default {
       } else {
         this.activeSearchResultId++
       }
+
+      this.updateQueryWithSearchResult()
+    },
+
+    updateQueryWithSearchResult () {
+      const hasActiveSearchResult = this.activeSearchResultId === null
+
+      this.query = hasActiveSearchResult
+        ? this.activeQuery
+        : this.results[this.activeSearchResultId]
     }
   }
 }
