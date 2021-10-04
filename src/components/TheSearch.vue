@@ -4,6 +4,7 @@
       <TheSearchInput
         v-model:query="query"
         :has-results="results.length"
+        @input="updateSearchResults"
         @change-state="toggleSearchResults"
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
@@ -36,7 +37,9 @@ export default {
 
   data () {
     return {
+      results: [],
       query: this.searchQuery,
+      activeQuery: this.searchQuery,
       isSearchResultsShown: false,
       activeSearchResultId: null,
       keywords: [
@@ -59,16 +62,6 @@ export default {
   },
 
   computed: {
-    results () {
-      if (!this.query) {
-        return []
-      }
-
-      return this.keywords.filter(result => {
-        return result.includes(this.trimmedQuery)
-      })
-    },
-
     trimmedQuery () {
       return this.query.replace(/\s+/g, ' ').trim()
     }
@@ -81,6 +74,21 @@ export default {
   },
 
   methods: {
+    updateSearchResults () {
+      this.activeSearchResultId = null
+      this.activeQuery = this.query
+
+      if (this.query === '') {
+        this.results = []
+      } else {
+        this.results = this.keywords.filter(result => {
+          return result.includes(this.trimmedQuery)
+        })
+      }
+
+      this.toggleSearchResults(true)
+    },
+
     toggleSearchResults (isSearchInputActive) {
       this.isSearchResultsShown = isSearchInputActive && this.results.length
     },
