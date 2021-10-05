@@ -4,7 +4,7 @@
       <TheSearchInput
         v-model:query="query"
         :has-results="results.length"
-        @input="updateSearchResults"
+        @update:query="updateSearchResults"
         @change-state="toggleSearchResults"
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
@@ -91,7 +91,7 @@ export default {
     },
 
     toggleSearchResults (isSearchInputActive) {
-      this.isSearchResultsShown = isSearchInputActive && this.results.length
+      this.isSearchResultsShown = isSearchInputActive && this.results.length > 0
     },
 
     handlePreviousSearchResult () {
