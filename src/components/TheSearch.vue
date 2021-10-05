@@ -4,9 +4,11 @@
       <TheSearchInput
         v-model:query="query"
         :has-results="results.length"
+        @update:query="updateSearchResults"
         @change-state="toggleSearchResults"
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
+        @keydown.up.prevent
       />
       <TheSearchResults
         v-show="isSearchResultsShown"
@@ -36,7 +38,9 @@ export default {
 
   data () {
     return {
+      results: [],
       query: this.searchQuery,
+      activeQuery: this.searchQuery,
       isSearchResultsShown: false,
       activeSearchResultId: null,
       keywords: [
@@ -59,16 +63,6 @@ export default {
   },
 
   computed: {
-    results () {
-      if (!this.query) {
-        return []
-      }
-
-      return this.keywords.filter(result => {
-        return result.includes(this.trimmedQuery)
-      })
-    },
-
     trimmedQuery () {
       return this.query.replace(/\s+/g, ' ').trim()
     }
@@ -81,6 +75,19 @@ export default {
   },
 
   methods: {
+    updateSearchResults () {
+      this.activeSearchResultId = null
+      this.activeQuery = this.query
+
+      if (this.query === '') {
+        this.results = []
+      } else {
+        this.results = this.keywords.filter(result => {
+          return result.includes(this.trimmedQuery)
+        })
+      }
+    },
+
     toggleSearchResults (isSearchInputActive) {
       this.isSearchResultsShown = isSearchInputActive && this.results.length
     },
@@ -109,6 +116,8 @@ export default {
       } else {
         this.activeSearchResultId--
       }
+
+      this.updateQueryWithSearchResult()
     },
 
     makeNextSearchResultActive () {
@@ -119,6 +128,16 @@ export default {
       } else {
         this.activeSearchResultId++
       }
+
+      this.updateQueryWithSearchResult()
+    },
+
+    updateQueryWithSearchResult () {
+      const hasActiveSearchResult = this.activeSearchResultId !== null
+
+      this.query = hasActiveSearchResult
+        ? this.results[this.activeSearchResultId]
+        : this.activeQuery
     }
   }
 }
