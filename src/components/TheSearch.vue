@@ -104,7 +104,7 @@ export default {
     },
 
     toggleSearchResults (isSearchInputActive) {
-      this.isSearchResultsShown = isSearchInputActive && this.results.length
+      this.isSearchResultsShown = isSearchInputActive && this.results.length > 0
     },
 
     handlePreviousSearchResult () {
