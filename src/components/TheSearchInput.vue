@@ -8,8 +8,7 @@
       :value="query"
       @input="updateQuery($event.target.value)"
       @focus="setState(true)"
-      @blur="setState(false)"
-      @click="setState(true)"
+      @click.stop="setState(true)"
       @keyup.esc="handleEsc"
     />
     <button

@@ -14,6 +14,9 @@
         v-show="isSearchResultsShown"
         :results="results"
         :active-result-id="activeSearchResultId"
+        @search-result-mouseenter="activeSearchResultId = $event"
+        @search-result-mouseleave="activeSearchResultId = null"
+        @search-result-click="selectSearchResult"
       />
     </div>
     <TheSearchButton />
@@ -74,7 +77,19 @@ export default {
     }
   },
 
+  mounted () {
+    document.addEventListener('click', this.handleClick)
+  },
+
+  beforeUnmount () {
+    document.removeEventListener('click', this.handleClick)
+  },
+
   methods: {
+    handleClick () {
+      this.toggleSearchResults(false)
+    },
+
     updateSearchResults () {
       this.activeSearchResultId = null
       this.activeQuery = this.query
@@ -138,6 +153,14 @@ export default {
       this.query = hasActiveSearchResult
         ? this.results[this.activeSearchResultId]
         : this.activeQuery
+    },
+
+    selectSearchResult (searchResultId) {
+      this.query = this.results[searchResultId]
+
+      this.updateSearchResults()
+
+      this.toggleSearchResults(false)
     }
   }
 }
