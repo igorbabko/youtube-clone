@@ -105,12 +105,13 @@ export default {
     },
 
     toggleSearchResults (isSearchInputActive) {
-      this.isSearchResultsShown = isSearchInputActive && this.results.length
+      this.isSearchResultsShown = isSearchInputActive && this.results.length > 0
     },
 
     handlePreviousSearchResult () {
       if (this.isSearchResultsShown) {
         this.makePreviousSearchResultActive()
+        this.updateQueryWithSearchResult()
       } else {
         this.toggleSearchResults(true)
       }
@@ -119,6 +120,7 @@ export default {
     handleNextSearchResult () {
       if (this.isSearchResultsShown) {
         this.makeNextSearchResultActive()
+        this.updateQueryWithSearchResult()
       } else {
         this.toggleSearchResults(true)
       }
@@ -132,8 +134,6 @@ export default {
       } else {
         this.activeSearchResultId--
       }
-
-      this.updateQueryWithSearchResult()
     },
 
     makeNextSearchResultActive () {
@@ -144,8 +144,6 @@ export default {
       } else {
         this.activeSearchResultId++
       }
-
-      this.updateQueryWithSearchResult()
     },
 
     updateQueryWithSearchResult () {
