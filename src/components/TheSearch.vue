@@ -20,7 +20,7 @@
         @search-result-click="selectSearchResult"
       />
     </div>
-    <TheSearchButton />
+    <TheSearchButton @click.stop="selectSearchResult" />
   </div>
 </template>
 
