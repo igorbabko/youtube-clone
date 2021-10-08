@@ -9,7 +9,7 @@
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
         @keydown.up.prevent
-        @enter="selectSearchResult(activeSearchResultId)"
+        @enter="selectSearchResult"
       />
       <TheSearchResults
         v-show="isSearchResultsShown"
@@ -156,8 +156,8 @@ export default {
         : this.activeQuery
     },
 
-    selectSearchResult (searchResultId) {
-      this.query = this.results[searchResultId]
+    selectSearchResult () {
+      this.query = this.results[this.activeSearchResultId]
 
       this.updateSearchResults()
 
