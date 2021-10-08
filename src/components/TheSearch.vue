@@ -157,11 +157,13 @@ export default {
     },
 
     selectSearchResult () {
-      this.query = this.results[this.activeSearchResultId]
-
-      this.updateSearchResults()
+      this.query = this.activeSearchResultId
+        ? this.results[this.activeSearchResultId]
+        : this.query
 
       this.toggleSearchResults(false)
+
+      this.updateSearchResults()
     }
   }
 }
