@@ -10,7 +10,7 @@
         @keyup.down="handleNextSearchResult"
         @enter="selectSearchResult"
         @keydown.up.prevent
-        @enter="selectSearchResult(activeSearchResultId)"
+        @enter="selectSearchResult"
       />
       <TheSearchResults
         v-show="isSearchResultsShown"
