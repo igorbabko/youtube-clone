@@ -8,6 +8,7 @@
         @change-state="toggleSearchResults"
         @keyup.up="handlePreviousSearchResult"
         @keyup.down="handleNextSearchResult"
+        @enter="selectSearchResult"
         @keydown.up.prevent
       />
       <TheSearchResults
@@ -19,7 +20,7 @@
         @search-result-click="selectSearchResult"
       />
     </div>
-    <TheSearchButton />
+    <TheSearchButton @click.stop="selectSearchResult" />
   </div>
 </template>
 
@@ -104,12 +105,13 @@ export default {
     },
 
     toggleSearchResults (isSearchInputActive) {
-      this.isSearchResultsShown = isSearchInputActive && this.results.length
+      this.isSearchResultsShown = isSearchInputActive && this.results.length > 0
     },
 
     handlePreviousSearchResult () {
       if (this.isSearchResultsShown) {
         this.makePreviousSearchResultActive()
+        this.updateQueryWithSearchResult()
       } else {
         this.toggleSearchResults(true)
       }
@@ -118,6 +120,7 @@ export default {
     handleNextSearchResult () {
       if (this.isSearchResultsShown) {
         this.makeNextSearchResultActive()
+        this.updateQueryWithSearchResult()
       } else {
         this.toggleSearchResults(true)
       }
@@ -131,8 +134,6 @@ export default {
       } else {
         this.activeSearchResultId--
       }
-
-      this.updateQueryWithSearchResult()
     },
 
     makeNextSearchResultActive () {
@@ -143,8 +144,6 @@ export default {
       } else {
         this.activeSearchResultId++
       }
-
-      this.updateQueryWithSearchResult()
     },
 
     updateQueryWithSearchResult () {
@@ -155,12 +154,14 @@ export default {
         : this.activeQuery
     },
 
-    selectSearchResult (searchResultId) {
-      this.query = this.results[searchResultId]
-
-      this.updateSearchResults()
+    selectSearchResult () {
+      this.query = this.activeSearchResultId
+        ? this.results[this.activeSearchResultId]
+        : this.query
 
       this.toggleSearchResults(false)
+
+      this.updateSearchResults()
     }
   }
 }
