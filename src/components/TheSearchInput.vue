@@ -17,7 +17,7 @@
       v-show="query"
       @click="clear"
     >
-      <BaseIcon name="x" class="w-5 w-5" />
+      <BaseIcon name="x" class="w-5 h-5" />
     </button>
   </div>
 </template>
