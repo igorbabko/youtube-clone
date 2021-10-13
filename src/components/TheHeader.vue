@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import BaseTooltip from './BaseTooltip.vue'
 import LogoMain from './LogoMain.vue'
@@ -72,6 +73,12 @@ export default {
     TheSearchWrapper,
     TheDropdownApps,
     TheDropdownSettings
+  },
+
+  provide () {
+    return {
+      isMobileSearchActive: computed(() => this.isMobileSearchActive)
+    }
   },
 
   emits: {
