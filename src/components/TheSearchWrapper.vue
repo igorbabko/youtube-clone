@@ -50,11 +50,11 @@ export default {
   },
 
   mounted () {
-    window.addEventListener('click', this.onClick)
+    document.addEventListener('click', this.onClick)
   },
 
   beforeUnmount () {
-    window.removeEventListener('click', this.onClick)
+    document.removeEventListener('click', this.onClick)
   },
 
   methods: {
