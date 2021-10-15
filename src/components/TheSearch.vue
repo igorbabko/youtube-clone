@@ -142,9 +142,9 @@ export default {
     },
 
     selectSearchResult () {
-      this.query = this.activeSearchResultId
-        ? this.results[this.activeSearchResultId]
-        : this.query
+      this.query = this.activeSearchResultId === null
+        ? this.query
+        : this.results[this.activeSearchResultId]
 
       this.toggleSearchResults(false)
 

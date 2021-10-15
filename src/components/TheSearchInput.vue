@@ -70,10 +70,6 @@ export default {
     document.addEventListener('keydown', this.onKeydown)
   },
 
-  beforeUnmount () {
-    document.removeEventListener('keydown', this.onKeydown)
-  },
-
   methods: {
     onKeydown (event) {
       const isInputFocused = this.$refs.input === document.activeElement
