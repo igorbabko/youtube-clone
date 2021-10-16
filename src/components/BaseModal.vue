@@ -1,8 +1,18 @@
 <template>
   <div class="fixed inset-0 z-10" tabindex="-1" @keydown.esc="close">
-    <BaseModalOverlay @click="close" />
+    <transition
+      appear
+      enter-active-class="ease-out duration-200"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="ease-in duration-100"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <BaseModalOverlay v-if="isOpen" @click="close" />
+    </transition>
 
-    <div class="bg-white max-w-sm mx-auto my-8 relative">
+    <div v-if="isOpen" class="bg-white max-w-sm mx-auto my-8 relative">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
@@ -25,13 +35,21 @@ export default {
 
   emits: ['close'],
 
+  data () {
+    return {
+      isOpen: true
+    }
+  },
+
   mounted () {
     this.$el.focus()
   },
 
   methods: {
-    close (e) {
-      this.$emit('close')
+    close () {
+      this.isOpen = false
+
+      setTimeout(() => this.$emit('close'), 100)
     }
   }
 }
