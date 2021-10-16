@@ -83,6 +83,7 @@ export default {
   data () {
     return {
       isSmallScreen: false,
+      isVoiceModalOpen: false,
       isMobileSearchActive: false,
       isVoiceModalOpen: false,
       classes: [

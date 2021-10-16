@@ -2,8 +2,8 @@
   <BaseModal>
     <p class="text-2xl mb-52">{{ text }}</p>
     <div class="flex justify-center items-center">
-      <span v-show="isListening" :class="buttonAnimationClasses" />
-      <button :class="buttonClasses" @click="isListening = !isListening">
+      <span v-show="isListening" :class="animationClasses"></span>
+      <button :class="buttonClasses" @click="record">
         <BaseIcon name="microphone" />
       </button>
     </div>
@@ -25,7 +25,8 @@ export default {
 
   data () {
     return {
-      isListening: false
+      isListening: true,
+      isRecording: false
     }
   },
 
@@ -40,7 +41,6 @@ export default {
         this.isListening ? 'text-white' : 'text-black',
         'w-16',
         'h-16',
-        'mx-auto',
         'rounded-full',
         'flex',
         'justify-center',
