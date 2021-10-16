@@ -12,16 +12,19 @@
       </button>
     </BaseTooltip>
   </div>
+  <BaseModal />
 </template>
 
 <script>
 import BaseIcon from './BaseIcon.vue'
+import BaseModal from './BaseModal.vue'
 import BaseTooltip from './BaseTooltip.vue'
 import TheSearch from './TheSearch.vue'
 
 export default {
   components: {
     BaseIcon,
+    BaseModal,
     BaseTooltip,
     TheSearch
   },
