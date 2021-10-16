@@ -1,11 +1,22 @@
 <template>
   <div
-    class="fixed inset-0 z-10 bg-black bg-opacity-80 focus:outline-none"
+    class="fixed inset-0 z-10 focus:outline-none"
     tabindex="-1"
-    @click.self="close"
     @keydown.esc="close"
   >
-    <div class="bg-white max-w-sm mx-auto my-8">
+    <transition
+      appear
+      enter-active-class="ease-out duration-200"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="ease-in duration-100"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <BaseModalOverlay v-if="isOpen" @click="close" />
+    </transition>
+
+    <div v-if="isOpen" class="relative bg-white max-w-sm mx-auto my-8">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
@@ -23,13 +34,21 @@
 
 <script>
 import BaseModalButtonClose from './BaseModalButtonClose.vue'
+import BaseModalOverlay from './BaseModalOverlay.vue'
 
 export default {
   components: {
-    BaseModalButtonClose
+    BaseModalButtonClose,
+    BaseModalOverlay,
   },
 
   emits: ['close'],
+
+  data () {
+    return {
+      isOpen: true
+    }
+  },
 
   mounted () {
     this.$el.focus()
@@ -37,7 +56,9 @@ export default {
 
   methods: {
     close () {
-      this.$emit('close')
+      this.isOpen = false
+
+      setTimeout(() => this.$emit('close'), 100)
     }
   }
 }
