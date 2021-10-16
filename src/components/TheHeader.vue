@@ -41,12 +41,14 @@
   </header>
   <teleport to="body">
     <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis voluptate
-      modi quibusdam alias, beatae tenetur quia eos totam nam iure veritatis
-      quod mollitia optio ipsa esse corporis expedita! Corporis nam
-      exercitationem nostrum, nulla amet aut rem animi aliquid quibusdam illum
-      rerum voluptatibus dolor voluptatem eveniet possimus! Itaque qui repellat
-      quaerat.
+      <div class="pt-0 pb-4 px-8">
+        <p class="text-2xl">Listening...</p>
+        <button
+          class="w-16 h-16 bg-red-700 rounded-full text-white flex justify-center items-center"
+        >
+          <BaseIcon name="microphone" />
+        </button>
+      </div>
     </BaseModal>
   </teleport>
 </template>
