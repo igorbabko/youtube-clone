@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 z-10" tabindex="-1" @keydown.esc="close">
+  <div class="fixed inset-0 z-30" tabindex="-1" @keydown.esc="close">
     <transition
       appear
       enter-active-class="ease-out duration-200"
