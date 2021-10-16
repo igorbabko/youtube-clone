@@ -16,7 +16,9 @@
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
-      <BaseModalBody />
+      <div class="p-6">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
@@ -24,13 +26,11 @@
 <script>
 import BaseModalButtonClose from './BaseModalButtonClose.vue'
 import BaseModalOverlay from './BaseModalOverlay.vue'
-import BaseModalBody from './BaseModalBody.vue'
 
 export default {
   components: {
     BaseModalButtonClose,
-    BaseModalOverlay,
-    BaseModalBody
+    BaseModalOverlay
   },
 
   emits: ['close'],
