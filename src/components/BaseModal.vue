@@ -12,13 +12,11 @@
       <BaseModalOverlay v-if="isOpen" @click="close" />
     </transition>
 
-    <div v-if="isOpen" class="bg-white w-2/5 m-8 relative">
+    <div v-if="isOpen" :class="bodyClasses">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
-      <div class="p-6">
-        <slot />
-      </div>
+      <slot />
     </div>
   </div>
 </template>
@@ -45,6 +43,18 @@ export default {
         'flex',
         'justify-center',
         'items-start'
+      ],
+      bodyClasses: [
+        'bg-white',
+        'w-full',
+        'sm:w-3/4',
+        'md:w-2/3',
+        'lg:w-3/5',
+        'xl:w-2/5',
+        'max-w-3xl',
+        'm-4',
+        'sm:m-8',
+        'relative'
       ]
     }
   },

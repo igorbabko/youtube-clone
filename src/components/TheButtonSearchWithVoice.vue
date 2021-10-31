@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center items-center">
+  <div :class="classes">
     <span v-show="isListening" :class="animationClasses" />
-    <button :class="classes">
+    <button v-bind="$attrs" :class="buttonClasses">
       <BaseIcon name="microphone" />
     </button>
   </div>
@@ -11,6 +11,8 @@
 import BaseIcon from './BaseIcon.vue'
 
 export default {
+  inheritAttrs: false,
+
   components: {
     BaseIcon
   },
@@ -26,8 +28,14 @@ export default {
     }
   },
 
+  data () {
+    return {
+      classes: ['flex', 'justify-center', 'items-center', 'rounded-full']
+    }
+  },
+
   computed: {
-    classes () {
+    buttonClasses () {
       return [
         this.isListening ? 'bg-red-600' : 'bg-gray-300',
         this.isListening ? 'text-white' : 'text-black',

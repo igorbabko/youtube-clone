@@ -1,13 +1,15 @@
 <template>
   <BaseModal>
-    <p class="text-2xl mb-52">{{ text }}</p>
-    <TheButtonSearchWithVoice
-      :is-listening="isListening"
-      :is-recording="isRecording"
-      @click="record"
-    />
-    <div :class="buttonHintClasses">
-      Tap the microphone to try again
+    <div class="flex flex-col items-center pt-0 pb-6 px-6">
+      <p class="text-2xl mb-52 w-full">{{ text }}</p>
+      <TheButtonSearchWithVoice
+        :is-listening="isListening"
+        :is-recording="isRecording"
+        @click="record"
+      />
+      <div :class="buttonHintClasses">
+        Tap the microphone to try again
+      </div>
     </div>
   </BaseModal>
 </template>
