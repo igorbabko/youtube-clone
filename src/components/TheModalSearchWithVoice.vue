@@ -2,11 +2,8 @@
   <BaseModal>
     <p class="text-2xl mb-52">{{ text }}</p>
     <div class="flex justify-center items-center">
-      <span
-        v-show="isListening"
-        class="animate-ping absolute w-14 h-14 rounded-full border border-gray-300"
-      ></span>
-      <button :class="buttonClasses" @click="isListening = !isListening">
+      <span v-show="isListening" :class="animationClasses"></span>
+      <button :class="buttonClasses" @click="record">
         <BaseIcon name="microphone" />
       </button>
     </div>
@@ -28,7 +25,8 @@ export default {
 
   data () {
     return {
-      isListening: false
+      isListening: true,
+      isRecording: false
     }
   },
 
@@ -39,7 +37,7 @@ export default {
 
     buttonClasses () {
       return [
-        this.isListening ? 'bg-red-700' : 'bg-gray-300',
+        this.isListening ? 'bg-red-600' : 'bg-gray-300',
         this.isListening ? 'text-white' : 'text-black',
         'w-16',
         'h-16',
@@ -60,6 +58,31 @@ export default {
         'text-gray-500',
         'mt-4'
       ]
+    },
+
+    animationClasses () {
+      return [
+        this.isRecording ? 'bg-gray-300' : 'border-gray-300',
+        'animate-ping',
+        'absolute',
+        'w-14',
+        'h-14',
+        'rounded-full',
+        'border'
+      ]
+    }
+  },
+
+  methods: {
+    record () {
+      if (this.isRecording) {
+        this.isRecording = false
+        this.isListening = false
+      } else if (this.isListening) {
+        this.isRecording = true
+      } else {
+        this.isListening = true
+      }
     }
   }
 }
