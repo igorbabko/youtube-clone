@@ -1,20 +1,25 @@
 <template>
   <BaseModal>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi sunt sed
-    dolores minus dicta praesentium ab ipsa, necessitatibus deserunt aperiam
-    exercitationem nostrum maiores odio tempore eaque rerum? Distinctio maxime
-    veniam optio quos quo facere molestias totam! Veritatis saepe aliquid id
-    suscipit! Officia laudantium nesciunt expedita libero, facere modi. Rerum,
-    laudantium!
+    <p class="text-2xl mb-52">Microphone off. Try again.</p>
+    <button
+      class="w-16 h-16 mx-auto bg-gray-300 rounded-full text-black flex justify-center items-center relative focus:outline-none"
+    >
+      <BaseIcon name="microphone" />
+    </button>
+    <div class="text-center text-sm text-gray-500 mt-4">
+      Tap the microphone to try again
+    </div>
   </BaseModal>
 </template>
 
 <script>
 import BaseModal from './BaseModal.vue'
+import BaseIcon from './BaseIcon.vue'
 
 export default {
   components: {
-    BaseModal
+    BaseModal,
+    BaseIcon
   }
 }
 </script>
