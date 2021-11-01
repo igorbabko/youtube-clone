@@ -11,7 +11,9 @@
         <BaseIcon name="microphone" class="w-5 h-5" />
       </button>
     </BaseTooltip>
-    <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+    <teleport to="body">
+      <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+    </teleport>
   </div>
 </template>
 
