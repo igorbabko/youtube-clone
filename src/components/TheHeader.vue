@@ -40,31 +40,34 @@
     </div>
   </header>
   <teleport to="body">
-    <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+    <TheModalSearchWithVoice
+      v-if="isVoiceModalOpen"
+      @close="isVoiceModalOpen = false"
+    />
   </teleport>
 </template>
 
 <script>
 import { computed } from 'vue'
 import BaseIcon from './BaseIcon.vue'
-import BaseModal from './BaseModal.vue'
 import BaseTooltip from './BaseTooltip.vue'
 import LogoMain from './LogoMain.vue'
 import ButtonLogin from './ButtonLogin.vue'
 import TheSearchWrapper from './TheSearchWrapper.vue'
 import TheDropdownApps from './TheDropdownApps.vue'
 import TheDropdownSettings from './TheDropdownSettings.vue'
+import TheModalSearchWithVoice from './TheModalSearchWithVoice.vue'
 
 export default {
   components: {
     BaseIcon,
-    BaseModal,
     BaseTooltip,
     LogoMain,
     ButtonLogin,
     TheSearchWrapper,
     TheDropdownApps,
-    TheDropdownSettings
+    TheDropdownSettings,
+    TheModalSearchWithVoice
   },
 
   provide () {

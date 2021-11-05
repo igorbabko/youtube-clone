@@ -12,17 +12,12 @@
       <BaseModalOverlay v-if="isOpen" @click="close" />
     </transition>
 
-    <div v-if="isOpen" class="relative bg-white max-w-sm m-8">
+    <div v-if="isOpen" class="relative bg-white w-2/3 m-8">
       <div class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
       <div class="p-6">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi sunt
-        sed dolores minus dicta praesentium ab ipsa, necessitatibus deserunt
-        aperiam exercitationem nostrum maiores odio tempore eaque rerum?
-        Distinctio maxime veniam optio quos quo facere molestias totam!
-        Veritatis saepe aliquid id suscipit! Officia laudantium nesciunt
-        expedita libero, facere modi. Rerum, laudantium!
+        <slot />
       </div>
     </div>
   </div>
