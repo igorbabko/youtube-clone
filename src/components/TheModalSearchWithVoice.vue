@@ -3,7 +3,7 @@
     <p class="text-2xl mb-52">{{ text }}</p>
     <div class="flex justify-center items-center">
       <span v-show="isListening" :class="buttonAnimationClasses" />
-      <button :class="buttonClasses" @click="record">
+      <button :class="buttonClasses" @click="toggleRecording">
         <BaseIcon name="microphone" />
       </button>
     </div>
@@ -25,14 +25,24 @@ export default {
 
   data () {
     return {
+      isQuiet: false,
       isListening: true,
-      isRecording: false
+      isRecording: false,
+      recordingTimeout: null
     }
   },
 
   computed: {
     text () {
-      return this.isListening ? 'Listening...' : 'Microphone off. Try again.'
+      if (this.isQuiet) {
+        return "Didn't hear that. Try again."
+      }
+
+      if (this.isListening) {
+        return 'Listening...'
+      }
+
+      return 'Microphone off. Try again.'
     },
 
     buttonClasses () {
@@ -82,14 +92,30 @@ export default {
   },
 
   methods: {
-    record () {
+    toggleRecording () {
+      clearTimeout(this.recordingTimeout)
+
+      this.isQuiet = false
+
       if (this.isRecording) {
-        this.isRecording = false
         this.isListening = false
+        this.isRecording = false
       } else if (this.isListening) {
         this.isRecording = true
       } else {
         this.isListening = true
+      }
+
+      this.handleRecordingTimeout()
+    },
+
+    handleRecordingTimeout () {
+      if (this.isListening || this.isRecording) {
+        this.recordingTimeout = setTimeout(() => {
+          this.isQuiet = true
+          this.isListening = false
+          this.isRecording = false
+        }, 5000)
       }
     }
   }
