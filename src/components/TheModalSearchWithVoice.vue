@@ -2,7 +2,10 @@
   <BaseModal>
     <p class="text-2xl mb-52">{{ text }}</p>
     <div class="flex justify-center items-center">
-      <span v-show="isListening" :class="buttonAnimationClasses" />
+      <span
+        v-show="isStatus('listening', 'recording')"
+        :class="buttonAnimationClasses"
+      />
       <button :class="buttonClasses" @click="toggleRecording">
         <BaseIcon name="microphone" />
       </button>
@@ -17,6 +20,11 @@
 import BaseModal from './BaseModal.vue'
 import BaseIcon from './BaseIcon.vue'
 
+const STATUS_IDLE = 'idle'
+const STATUS_LISTENING = 'listening'
+const STATUS_RECORDING = 'recording'
+const STATUS_QUIET = 'quiet'
+
 export default {
   components: {
     BaseModal,
@@ -25,20 +33,18 @@ export default {
 
   data () {
     return {
-      isQuiet: false,
-      isListening: true,
-      isRecording: false,
+      status: STATUS_LISTENING,
       recordingTimeout: null
     }
   },
 
   computed: {
     text () {
-      if (this.isQuiet) {
+      if (this.isStatus(STATUS_QUIET)) {
         return "Didn't hear that. Try again."
       }
 
-      if (this.isListening || this.isRrecording) {
+      if (this.isStatus(STATUS_LISTENING, STATUS_RECORDING)) {
         return 'Listening...'
       }
 
@@ -46,9 +52,17 @@ export default {
     },
 
     buttonClasses () {
+      const bgColorClass = this.isStatus(STATUS_LISTENING, STATUS_RECORDING)
+          ? 'bg-red-600'
+          : 'bg-gray-300'
+
+      const textColorClass = this.isStatus(STATUS_LISTENING, STATUS_RECORDING)
+          ? 'text-white'
+          : 'text-black'
+
       return [
-        this.isListening ? 'bg-red-600' : 'bg-gray-300',
-        this.isListening ? 'text-white' : 'text-black',
+        bgColorClass,
+        textColorClass,
         'w-16',
         'h-16',
         'mx-auto',
@@ -63,7 +77,7 @@ export default {
 
     buttonHintClasses () {
       return [
-        this.isListening ? 'invisible' : 'visible',
+        this.isStatus(STATUS_LISTENING, STATUS_RECORDING) ? 'invisible' : 'visible',
         'text-center',
         'text-sm',
         'text-gray-500',
@@ -73,7 +87,7 @@ export default {
 
     buttonAnimationClasses () {
       return [
-        this.isRecording ? 'bg-gray-300' : 'border border-gray-300',
+        this.isStatus(STATUS_RECORDING) ? 'bg-gray-300' : 'border border-gray-300',
         'animate-ping',
         'absolute',
         'w-14',
@@ -95,28 +109,33 @@ export default {
     toggleRecording () {
       clearTimeout(this.recordingTimeout)
 
-      this.isQuiet = false
-
-      if (this.isRecording) {
-        this.isRecording = false
-        this.isListening = false
-      } else if (this.isListening) {
-        this.isRecording = true
-      } else {
-        this.isListening = true
-      }
+      this.updateStatus()
 
       this.handleRecordingTimeout()
     },
 
+    updateStatus (status) {
+      if (status) {
+        this.status = status
+      } else if (this.isStatus(STATUS_RECORDING)) {
+        this.status = STATUS_IDLE
+      } else if (this.isStatus(STATUS_LISTENING)) {
+        this.status = STATUS_RECORDING
+      } else {
+        this.status = STATUS_LISTENING
+      }
+    },
+
     handleRecordingTimeout () {
-      if (this.isListening || this.isRecording) {
+      if (this.isStatus(STATUS_LISTENING, STATUS_RECORDING)) {
         this.recordingTimeout = setTimeout(() => {
-          this.isQuiet = true
-          this.isListening = false
-          this.isRecording = false
+          this.updateStatus(STATUS_QUIET)
         }, 5000)
       }
+    },
+
+    isStatus (...statuses) {
+      return statuses.includes(this.status)
     }
   }
 }
