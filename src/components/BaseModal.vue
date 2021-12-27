@@ -19,6 +19,9 @@
       <div class="p-6">
         <slot />
       </div>
+      <div v-if="$slots.footer" class="flex border-t border-gray-300 py-2">
+        <slot name="footer" :close="close" />
+      </div>
     </div>
   </div>
 </template>
