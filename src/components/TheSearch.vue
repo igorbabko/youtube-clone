@@ -18,6 +18,7 @@
         @search-result-mouseenter="activeSearchResultId = $event"
         @search-result-mouseleave="activeSearchResultId = null"
         @search-result-click="selectSearchResult"
+        @close="toggleSearchResults"
       />
     </div>
     <TheSearchButton @click.stop="selectSearchResult" />
