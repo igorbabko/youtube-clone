@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-3 text-black text-sm mt-5">
+  <div class="space-y-3 text-black text-sm mt-3">
     <div
       v-for="(label, index) in categories"
       :key="label"
