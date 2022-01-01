@@ -5,39 +5,29 @@
       :key="label"
       class="flex items-center"
     >
-      <input
-        type="checkbox"
-        class="h-5 w-5 cursor-pointer"
+      <BaseCheckbox
         :id="index"
         :value="label"
-        v-model="selectedSearchPredictions"
-      />
-      <label :for="index" class="pl-4 cursor-pointer flex-grow">
+        v-bind="$attrs"
+        v-model="modelValue"
+      >
         {{ label }}
-      </label>
+      </BaseCheckbox>
     </div>
   </div>
 </template>
 
 <script>
+import BaseCheckbox from './BaseCheckbox.vue'
+
 export default {
+  components: {
+    BaseCheckbox
+  },
+
   props: {
     searchPredictions: Array,
     modelValue: Array
-  },
-
-  emits: ['update:modelValue'],
-
-  data () {
-    return {
-      selectedSearchPredictions: this.modelValue
-    }
-  },
-
-  watch: {
-    selectedSearchPredictions () {
-      this.$emit('update:modelValue', this.selectedSearchPredictions)
-    }
   }
 }
 </script>
