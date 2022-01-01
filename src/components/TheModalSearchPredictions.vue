@@ -6,29 +6,10 @@
       :search-predictions="searchPredictions"
     />
     <p class="text-xs text-gray-600 mt-5">The selected predictions are:</p>
-
-    <div class="space-y-3 text-black text-sm mt-5">
-      <div
-        v-for="(label, index) in searchPredictionCategories"
-        :key="label"
-        class="flex items-center cursor-pointer"
-      >
-        <input
-          type="radio"
-          class="h-5 w-5 cursor-pointer"
-          :id="`search-prediction-category-${index}`"
-          :value="label"
-          v-model="selectedSearchPredictionCategory"
-        />
-        <label
-          :for="`search-prediction-category-${index}`"
-          class="ml-4 cursor-pointer flex-grow"
-        >
-          {{ label }}
-        </label>
-      </div>
-    </div>
-
+    <TheSearchPredictionCategories
+      v-model="selectedSearchPredictionCategory"
+      :categories="searchPredictionCategories"
+    />
     <template #footer="{ close }">
       <BaseButton @click="close" class="ml-auto mr-1">
         Cancel
@@ -44,12 +25,14 @@
 import BaseButton from './BaseButton.vue'
 import BaseModal from './BaseModal.vue'
 import TheSearchPredictionsList from './TheSearchPredictionsList.vue'
+import TheSearchPredictionCategories from './TheSearchPredictionCategories.vue'
 
 export default {
   components: {
     BaseButton,
     BaseModal,
-    TheSearchPredictionsList
+    TheSearchPredictionsList,
+    TheSearchPredictionCategories
   },
 
   props: {
