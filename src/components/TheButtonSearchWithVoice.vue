@@ -38,12 +38,12 @@ export default {
   computed: {
     buttonClasses () {
       const bgColorClass = this.isStatus(STATUS_LISTENING, STATUS_RECORDING)
-          ? 'bg-red-600'
-          : 'bg-gray-300'
+        ? 'bg-red-600'
+        : 'bg-gray-300'
 
       const textColorClass = this.isStatus(STATUS_LISTENING, STATUS_RECORDING)
-          ? 'text-white'
-          : 'text-black'
+        ? 'text-white'
+        : 'text-black'
 
       return [
         bgColorClass,
@@ -62,7 +62,9 @@ export default {
 
     buttonHintClasses () {
       return [
-        this.isStatus(STATUS_LISTENING, STATUS_RECORDING) ? 'invisible' : 'visible',
+        this.isStatus(STATUS_LISTENING, STATUS_RECORDING)
+          ? 'invisible'
+          : 'visible',
         'text-center',
         'text-sm',
         'text-gray-500',
@@ -72,7 +74,9 @@ export default {
 
     buttonAnimationClasses () {
       return [
-        this.isStatus(STATUS_RECORDING) ? 'bg-gray-300' : 'border border-gray-300',
+        this.isStatus(STATUS_RECORDING)
+          ? 'bg-gray-300'
+          : 'border border-gray-300',
         'animate-ping',
         'absolute',
         'w-14',

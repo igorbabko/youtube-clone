@@ -6,7 +6,7 @@
     v-bind="$attrs"
     v-model="modelValue"
   />
-  <label v-if="$slots.default" :for="id" class="ml-4 cursor-pointer flex-grow">
+  <label v-if="$slots.default" :for="id" class="pl-4 cursor-pointer flex-grow">
     <slot />
   </label>
 </template>

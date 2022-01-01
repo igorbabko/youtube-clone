@@ -12,11 +12,11 @@
       <BaseModalOverlay v-if="isOpen" @click="close" />
     </transition>
 
-    <div v-if="isOpen" class="relative bg-white w-full sm:w-2/3 m-8">
+    <div v-if="isOpen" class="relative bg-white w-full sm:w-2/3 m-8 flex flex-col" style="max-height: calc(100vh - 64px)">
       <div v-if="withCloseButton" class="p-2 text-right">
         <BaseModalButtonClose @click="close" />
       </div>
-      <div class="p-6">
+      <div class="p-6 overflow-auto">
         <slot />
       </div>
       <div v-if="$slots.footer" class="flex border-t border-gray-300 py-2">
