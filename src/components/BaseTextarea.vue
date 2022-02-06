@@ -5,8 +5,9 @@
       v-model="modelValue"
       @input="adjustHeight"
       :maxlength="limit"
+      ref="textarea"
       placeholder="Provide additional details (optional)"
-      class="border rounded-sm pt-2 pb-5 px-2 resize-none w-full focus:outline-none peer"
+      class="border rounded-sm pt-2 pb-8 px-2 resize-none w-full focus:outline-none overflow-hidden"
     />
     <BaseTextareaCounter>{{ counter }}</BaseTextareaCounter>
   </div>
@@ -29,11 +30,14 @@ export default {
     }
   },
 
+  mounted () {
+    this.adjustHeight()
+  },
+
   methods: {
-    adjustHeight ({ target: textarea }) {
-      textarea.style.overflow = 'hidden'
-      textarea.style.height = 'auto'
-      textarea.style.height = `${textarea.scrollHeight}px`
+    adjustHeight () {
+      this.$refs.textarea.style.height = 'auto'
+      this.$refs.textarea.style.height = `${this.$refs.textarea.scrollHeight}px`
     }
   }
 }
