@@ -5,8 +5,7 @@ test('renders checkbox label', () => {
   const value = 1
   const id = 'checkbox'
   const label = 'Test Label'
-
-  const { getByLabelText } = render(BaseCheckbox, {
+  const options = {
     props: {
       id,
       value,
@@ -15,7 +14,9 @@ test('renders checkbox label', () => {
     slots: {
       default: label
     }
-  })
+  }
+
+  const { getByLabelText } = render(BaseCheckbox, options)
 
   const checkbox = getByLabelText(label)
 
