@@ -13,9 +13,9 @@ test('renders modal body and footer', () => {
   }
 
   const { getByText } = render(BaseModal, options)
-  
-  getByText(body);
-  getByText(footer);
+
+  getByText(body)
+  getByText(footer)
 })
 
 test('renders modal with close button', () => {
@@ -25,9 +25,9 @@ test('renders modal with close button', () => {
     }
   }
 
-  const { container } = render(BaseModal, options)
-  
-  expect(container.querySelector('svg').innerHTML).toBe(icons['x']);
+  const { getByTestId } = render(BaseModal, options)
+
+  expect(getByTestId('base-icon').innerHTML).toBe(icons['x'])
 })
 
 test('closes modal after clicking close button', async () => {
@@ -41,11 +41,16 @@ test('closes modal after clicking close button', async () => {
     }
   }
 
-  const { container, getByText, queryByText } = render(BaseModal, options)
- 
-  getByText(body);
-  await fireEvent.click(container.querySelector('button'));
+  const { getByTestId, getByText, queryByTestId, queryByText } = render(
+    BaseModal,
+    options
+  )
+
+  getByText(body)
+  getByTestId('base-modal-button-close')
+
+  await fireEvent.click(getByTestId('base-modal-button-close'))
 
   expect(queryByText(body)).toBeNull()
-  expect(container.querySelector('svg')).toBeNull();
+  expect(queryByTestId('base-modal-button-close')).toBeNull()
 })
