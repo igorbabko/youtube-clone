@@ -7,7 +7,7 @@
       :maxlength="limit"
       ref="textarea"
       placeholder="Provide additional details (optional)"
-      class="border rounded-sm pt-2 pb-8 px-2 resize-none w-full focus:outline-none overflow-hidden"
+      class="border rounded-sm pt-2 pb-8 px-2 resize-none w-full focus:outline-none overflow-hidden peer"
     />
     <BaseTextareaCounter>{{ counter }}</BaseTextareaCounter>
   </div>
