@@ -4,15 +4,21 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "jest --watch"
   },
   "dependencies": {
     "vue": "^3.2.25"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@testing-library/vue": "^6.4.2",
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/compiler-sfc": "^3.0.5",
+    "@vue/vue3-jest": "^27.0.0-alpha.4",
     "autoprefixer": "^10.4.2",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.22",
     "vite": "^2.8.1"
