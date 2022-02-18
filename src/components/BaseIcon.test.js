@@ -5,7 +5,7 @@ import icons from '../icons'
 const existingIconName = Object.keys(icons)[0]
 const nonExistentIconName = 'nonExistentIcon'
 
-function renderIcon(name, classes = null) {
+function renderIcon (name, classes = null) {
   const options = {
     props: {
       name,
@@ -24,22 +24,24 @@ test('renders icon', () => {
 
 test('renders non-existent icon', () => {
   renderIcon(nonExistentIconName)
- 
+
   expect(screen.getByTestId('base-icon').innerHTML).toBeFalsy()
 })
 
 test('renders icon with default classes', () => {
-  const defaultClasses = 'w-6 h-6'
-
   renderIcon(existingIconName)
-  
-  expect(screen.getByTestId('base-icon').getAttribute('class')).toBe(defaultClasses)
+
+  const classes = screen.getByTestId('base-icon').getAttribute('class')
+
+  expect(classes).toBe('w-6 h-6')
 })
 
 test('renders icon with custom classes', () => {
-  const classes = 'w-10 h-10'
+  const expectedClasses = 'w-10 h-10'
 
-  renderIcon(existingIconName, classes)
- 
-  expect(screen.getByTestId('base-icon').getAttribute('class')).toBe(classes)
+  renderIcon(existingIconName, expectedClasses)
+
+  const classes = screen.getByTestId('base-icon').getAttribute('class')
+
+  expect(classes).toBe(expectedClasses)
 })
