@@ -18,7 +18,7 @@
       style="max-height: calc(100vh - 64px)"
     >
       <div v-if="withCloseButton" class="p-2 text-right">
-        <BaseModalButtonClose @click="close" />
+        <BaseModalButtonClose @click="close" data-testid="base-modal-button-close" />
       </div>
       <div class="p-6 overflow-auto">
         <slot />
