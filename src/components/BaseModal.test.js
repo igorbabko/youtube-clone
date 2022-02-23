@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/vue'
+import { render, screen, fireEvent } from '@testing-library/vue'
 import BaseModal from './BaseModal.vue'
 import icons from '../icons'
 
@@ -34,4 +34,25 @@ test('renders modal without close button', () => {
   render(BaseModal)
 
   expect(screen.queryByTestId('base-icon')).toBeNull()
+})
+
+test('closes modal when clicking close button', async () => {
+  const body = 'This is modal body'
+  const options = {
+    props: {
+      withCloseButton: true
+    },
+    slots: {
+      default: body
+    }
+  }
+
+  render(BaseModal, options)
+
+  screen.getByText(body)
+
+  await fireEvent.click(screen.getByTestId('base-modal-button-close'))
+
+  expect(screen.queryByText(body)).toBeNull()
+  expect(screen.queryByTestId('base-modal-overlay')).toBeNull()
 })
