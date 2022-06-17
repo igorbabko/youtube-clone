@@ -1,4 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/vue'
+import {
+  render,
+  screen,
+  fireEvent,
+  waitForElementToBeRemoved
+} from '@testing-library/vue'
 import BaseModal from './BaseModal.vue'
 import icons from '../icons'
 
@@ -51,8 +56,10 @@ test('closes modal when clicking close button', async () => {
 
   screen.getByText(body)
 
-  await fireEvent.click(screen.getByTestId('base-modal-button-close'))
+  fireEvent.click(screen.getByTestId('base-modal-button-close'))
 
-  expect(screen.queryByText(body)).toBeNull()
-  expect(screen.queryByTestId('base-modal-overlay')).toBeNull()
+  await waitForElementToBeRemoved([
+    screen.queryByText(body),
+    screen.queryByTestId('base-modal-overlay')
+  ])
 })
