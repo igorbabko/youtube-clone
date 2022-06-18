@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes" tabindex="-1" @keydown.esc="close">
+  <div :class="classes" tabindex="-1" @keydown.esc="close" role="dialog">
     <transition
       appear
       enter-active-class="ease-out duration-200"
