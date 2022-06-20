@@ -16,19 +16,19 @@ function renderIcon(name, classes = null) {
   return render(BaseIcon, options)
 }
 
-test('renders icon', () => {
+it('renders when it exists', () => {
   renderIcon(existingIconName)
 
   expect(screen.getByTestId('base-icon').innerHTML).toBeTruthy()
 })
 
-test('renders non-existent icon', () => {
+it('does not render if it does not exist', () => {
   renderIcon(nonExistentIconName)
 
   expect(screen.getByTestId('base-icon').innerHTML).toBeFalsy()
 })
 
-test('renders icon with default classes', () => {
+it('renders with default classes', () => {
   renderIcon(existingIconName)
 
   const classes = screen.getByTestId('base-icon').getAttribute('class')
@@ -36,7 +36,7 @@ test('renders icon with default classes', () => {
   expect(classes).toBe('w-6 h-6')
 })
 
-test('renders icon with custom classes', () => {
+it('renders with custom classes', () => {
   const expectedClasses = 'w-10 h-10'
 
   renderIcon(existingIconName, expectedClasses)

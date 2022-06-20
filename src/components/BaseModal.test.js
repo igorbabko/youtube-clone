@@ -28,17 +28,9 @@ function assertModalClosed(body) {
   ])
 }
 
-// test.only('renders modal with body and footer', () => {
-// test.skip('renders modal with body and footer', () => {
-// xtest('renders modal with body and footer', () => {
-// it('renders modal with body and footer', () => {
-// it.only('renders modal with body and footer', () => {
-// fit('renders modal with body and footer', () => {
-// it.skip('renders modal with body and footer', () => {
-// xit('renders modal with body and footer', () => {
-test('renders modal with body and footer', () => {
-  const body = 'This is modal body'
-  const footer = 'This is modal footer'
+it('renders with body and footer', () => {
+  const body = 'This is body'
+  const footer = 'This is footer'
 
   renderModal(body, footer)
 
@@ -46,10 +38,7 @@ test('renders modal with body and footer', () => {
   screen.getByText(footer)
 })
 
-test.todo('renders modal with title')
-it.todo('renders modal with title')
-
-test('renders modal with close button', () => {
+it('renders with close button', () => {
   const withCloseButton = true
 
   renderModal('', '', withCloseButton)
@@ -57,7 +46,7 @@ test('renders modal with close button', () => {
   expect(screen.getByTestId('base-icon').innerHTML).toBe(icons['x'])
 })
 
-test('renders modal without close button', () => {
+it('renders without close button', () => {
   const withCloseButton = false
 
   renderModal('', '', withCloseButton)
@@ -65,8 +54,8 @@ test('renders modal without close button', () => {
   expect(screen.queryByTestId('base-icon')).toBeNull()
 })
 
-test('closes modal when clicking close button', () => {
-  const body = 'This is modal body'
+it('closes when clicking close button', () => {
+  const body = 'This is body'
   const withCloseButton = true
   renderModal(body, '', withCloseButton)
 
@@ -75,8 +64,8 @@ test('closes modal when clicking close button', () => {
   return assertModalClosed(body)
 })
 
-test('closes modal when clicking overlay', () => {
-  const body = 'This is modal body'
+it('closes when clicking overlay', () => {
+  const body = 'This is body'
   renderModal(body)
 
   fireEvent.click(screen.getByTestId('base-modal-overlay'))
@@ -84,8 +73,8 @@ test('closes modal when clicking overlay', () => {
   return assertModalClosed(body)
 })
 
-test('closes modal when clicking cancel button in the footer', () => {
-  const body = 'This is modal body'
+it('closes when clicking cancel button in the footer', () => {
+  const body = 'This is body'
   const footer = `
     <template #footer="{ close }">
       <button @click="close">Cancel</button>
@@ -98,8 +87,8 @@ test('closes modal when clicking cancel button in the footer', () => {
   return assertModalClosed(body)
 })
 
-test('closes modal when pressing esc key', () => {
-  const body = 'This is modal body'
+it('closes when pressing esc key', () => {
+  const body = 'This is body'
   renderModal(body)
 
   fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Esc' })
