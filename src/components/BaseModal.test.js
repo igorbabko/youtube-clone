@@ -28,6 +28,14 @@ function assertModalClosed(body) {
   ])
 }
 
+// test.only('renders modal with body and footer', () => {
+// test.skip('renders modal with body and footer', () => {
+// xtest('renders modal with body and footer', () => {
+// it('renders modal with body and footer', () => {
+// it.only('renders modal with body and footer', () => {
+// fit('renders modal with body and footer', () => {
+// it.skip('renders modal with body and footer', () => {
+// xit('renders modal with body and footer', () => {
 test('renders modal with body and footer', () => {
   const body = 'This is modal body'
   const footer = 'This is modal footer'
@@ -37,6 +45,9 @@ test('renders modal with body and footer', () => {
   screen.getByText(body)
   screen.getByText(footer)
 })
+
+test.todo('renders modal with title')
+it.todo('renders modal with title')
 
 test('renders modal with close button', () => {
   const withCloseButton = true
