@@ -19,36 +19,37 @@ function renderModal(searchPredictions, searchPredictionCategories) {
   return render(TheModalSearchPredictions, options)
 }
 
-it('shows search predictions', () => {
-  const predictions = ['Prediction 1', 'Prediction 2', 'Prediction 3']
+const predictions = ['Prediction 1', 'Prediction 2', 'Prediction 3']
+const categories = ['Category 1', 'Category 2', 'Category 3']
 
-  renderModal(predictions)
+describe('when open', () => {
+  it('shows search predictions', () => {
+    renderModal(predictions)
 
-  predictions.forEach(screen.getByText)
+    predictions.forEach(screen.getByText)
+  })
+
+  it('shows search prediction categories', () => {
+    renderModal(categories)
+
+    categories.forEach(screen.getByText)
+  })
 })
 
-it('shows search prediction categories', () => {
-  const categories = ['Category 1', 'Category 2', 'Category 3']
+describe('when closed', () => {
+  it('does not show search predictions', () => {
+    renderModal(predictions)
 
-  renderModal(categories)
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
-  categories.forEach(screen.getByText)
-})
+    return waitForElementToBeRemoved(predictions.map(screen.queryByText))
+  })
 
-it('does not show search predictions if closed', () => {
-  const predictions = ['Prediction 1', 'Prediction 2', 'Prediction 3']
-  renderModal(predictions)
+  it('does not show search prediction categories', () => {
+    renderModal(categories)
 
-  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
-  return waitForElementToBeRemoved(predictions.map(screen.queryByText))
-})
-
-it('does not show search prediction categories if closed', () => {
-  const categories = ['Category 1', 'Category 2', 'Category 3']
-  renderModal(categories)
-
-  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
-
-  return waitForElementToBeRemoved(categories.map(screen.queryByText))
+    return waitForElementToBeRemoved(categories.map(screen.queryByText))
+  })
 })
