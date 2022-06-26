@@ -1,26 +1,42 @@
 import { render, screen } from '@testing-library/vue'
 import BaseRadio from './BaseRadio.vue'
 
-it('renders checked with label', () => {
-  const id = 'id'
-  const value = 'value'
-  const label = 'Label'
-  const isChecked = true
+const label = 'Label'
+const value = 'value'
+
+function renderRadio(isChecked) {
   const options = {
     props: {
       modelValue: isChecked ? value : null,
       value,
-      id
+      id: 'id'
     },
     slots: {
       default: label
     }
   }
 
-  render(BaseRadio, options)
+  return render(BaseRadio, options)
+}
+
+it('renders checked with label', () => {
+  const isChecked = true
+
+  renderRadio(isChecked)
 
   expect(screen.getByLabelText(label).checked).toBe(isChecked)
 })
 
-it.todo('renders unchecked with label')
-it.todo('renders with value')
+it('renders unchecked with label', () => {
+  const isChecked = false
+
+  renderRadio(isChecked)
+
+  expect(screen.getByLabelText(label).checked).toBe(isChecked)
+})
+
+it('renders with value', () => {
+  renderRadio()
+
+  expect(screen.getByLabelText(label).value).toBe(value)
+})
