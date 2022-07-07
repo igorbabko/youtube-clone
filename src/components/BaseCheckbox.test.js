@@ -17,11 +17,11 @@ it('renders with label and checked', () => {
 
   render(BaseCheckbox, options)
 
-  expect(screen.getByLabelText(label).checked).toBe(true)
+  expect(screen.getByLabelText(label)).toBeChecked()
 })
 
 it('renders unchecked', () => {
   render(BaseCheckbox)
 
-  expect(screen.getByRole('checkbox').checked).toBe(false)
+  expect(screen.getByRole('checkbox')).not.toBeChecked()
 })
