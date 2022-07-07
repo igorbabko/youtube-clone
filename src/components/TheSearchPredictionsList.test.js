@@ -19,14 +19,14 @@ it('shows search predictions unchecked', () => {
   renderPredictions()
 
   predictions.forEach(prediction =>
-    expect(screen.getByLabelText(prediction).checked).toBe(false)
+    expect(screen.getByLabelText(prediction)).not.toBeChecked()
   )
 })
 
 it('shows specified search predictions checked', () => {
   renderPredictions(checkedPredictions)
 
-  expect(screen.getByLabelText(predictions[0]).checked).toBe(false)
-  expect(screen.getByLabelText(checkedPredictions[0]).checked).toBe(true)
-  expect(screen.getByLabelText(checkedPredictions[1]).checked).toBe(true)
+  expect(screen.getByLabelText(predictions[0])).not.toBeChecked()
+  expect(screen.getByLabelText(checkedPredictions[0])).toBeChecked()
+  expect(screen.getByLabelText(checkedPredictions[1])).toBeChecked()
 })

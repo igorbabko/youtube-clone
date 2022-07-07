@@ -24,7 +24,7 @@ it('renders checked with label', () => {
 
   renderRadio(isChecked)
 
-  expect(screen.getByLabelText(label).checked).toBe(isChecked)
+  expect(screen.getByLabelText(label)).toBeChecked()
 })
 
 it('renders unchecked with label', () => {
@@ -32,7 +32,7 @@ it('renders unchecked with label', () => {
 
   renderRadio(isChecked)
 
-  expect(screen.getByLabelText(label).checked).toBe(isChecked)
+  expect(screen.getByLabelText(label)).not.toBeChecked()
 })
 
 it('renders with value', () => {

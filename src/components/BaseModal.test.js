@@ -45,7 +45,7 @@ describe('rendering', () => {
 
     renderModal('', '', withCloseButton)
 
-    expect(screen.getByTestId('base-icon').innerHTML).toBe(icons['x'])
+    expect(screen.getByTestId('base-icon')).toContainHTML(icons['x'])
   })
 
   it('renders without close button', () => {
@@ -53,7 +53,7 @@ describe('rendering', () => {
 
     renderModal('', '', withCloseButton)
 
-    expect(screen.queryByTestId('base-icon')).toBeNull()
+    expect(screen.queryByTestId('base-icon')).not.toBeInTheDocument()
   })
 })
 

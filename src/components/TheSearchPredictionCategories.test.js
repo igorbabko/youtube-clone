@@ -19,14 +19,14 @@ it('shows search prediction categories unchecked', () => {
   renderCategories()
 
   categories.forEach(category =>
-    expect(screen.getByLabelText(category).checked).toBe(false)
+    expect(screen.getByLabelText(category)).not.toBeChecked()
   )
 })
 
 it('shows specified search prediction category checked', () => {
   renderCategories(checkedCategory)
 
-  expect(screen.getByLabelText(checkedCategory).checked).toBe(true)
-  expect(screen.getByLabelText(categories[1]).checked).toBe(false)
-  expect(screen.getByLabelText(categories[2]).checked).toBe(false)
+  expect(screen.getByLabelText(checkedCategory)).toBeChecked()
+  expect(screen.getByLabelText(categories[1])).not.toBeChecked()
+  expect(screen.getByLabelText(categories[2])).not.toBeChecked()
 })
