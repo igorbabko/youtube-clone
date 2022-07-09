@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/vue'
+import { render, screen, fireEvent } from '@testing-library/vue'
 import BaseTooltip from './BaseTooltip.vue'
 
 function renderTooltip(text, element = '') {
@@ -22,11 +22,22 @@ it('renders hidden with specified text', () => {
   expect(screen.getByText(text)).not.toBeVisible()
 })
 
-it('renders with target element', () => {
+it('renders with owning element', () => {
   const buttonLabel = 'Click Me'
   const button = `<button>${buttonLabel}</button>`
 
   renderTooltip('', button)
 
   expect(screen.getByText(buttonLabel)).toBeVisible()
+})
+
+it('shows after hovering over owning element', async () => {
+  const text = 'Tooltip text'
+  const buttonLabel = 'Click Me'
+  const button = `<button>${buttonLabel}</button>`
+  renderTooltip(text, button)
+
+  await fireEvent.mouseEnter(screen.getByText(buttonLabel).parentElement)
+
+  expect(screen.getByText(text)).toBeVisible()
 })
