@@ -1,6 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/vue'
 import BaseTooltip from './BaseTooltip.vue'
 
+const text = 'Tooltip text'
+const buttonLabel = 'Click Me'
+const button = `<button>${buttonLabel}</button>`
+
 function renderTooltip(text, element = '') {
   const options = {
     props: {
@@ -14,60 +18,68 @@ function renderTooltip(text, element = '') {
   return render(BaseTooltip, options)
 }
 
-it('renders hidden with specified text', () => {
-  const text = 'Tooltip text'
+function hoverOverOwningElement() {
+  return fireEvent.mouseEnter(getOwningElement())
+}
 
-  renderTooltip(text)
+function moveCursorAwayFromOwningElement() {
+  return fireEvent.mouseLeave(getOwningElement())
+}
 
-  expect(screen.getByText(text)).not.toBeVisible()
+function clickOwningElement() {
+  return fireEvent.click(getOwningElement())
+}
+
+function getOwningElement() {
+  return screen.getByText(buttonLabel).parentElement
+}
+
+describe('rendering', () => {
+  it('renders hidden with specified text', () => {
+    renderTooltip(text)
+
+    expect(screen.getByText(text)).not.toBeVisible()
+  })
+
+  it('renders with owning element', () => {
+    renderTooltip('', button)
+
+    expect(screen.getByText(buttonLabel)).toBeVisible()
+  })
 })
 
-it('renders with owning element', () => {
-  const buttonLabel = 'Click Me'
-  const button = `<button>${buttonLabel}</button>`
+describe('showing', () => {
+  it('shows after hovering over owning element', async () => {
+    renderTooltip(text, button)
 
-  renderTooltip('', button)
+    await hoverOverOwningElement()
 
-  expect(screen.getByText(buttonLabel)).toBeVisible()
+    expect(screen.getByText(text)).toBeVisible()
+  })
 })
 
-it('shows after hovering over owning element', async () => {
-  const text = 'Tooltip text'
-  const buttonLabel = 'Click Me'
-  const button = `<button>${buttonLabel}</button>`
-  renderTooltip(text, button)
+describe('hiding', () => {
+  it('hides after moving cursor away from owning element', async () => {
+    renderTooltip(text, button)
 
-  await fireEvent.mouseEnter(screen.getByText(buttonLabel).parentElement)
+    await hoverOverOwningElement()
 
-  expect(screen.getByText(text)).toBeVisible()
-})
+    expect(screen.getByText(text)).toBeVisible()
 
-it('hides after moving cursor away from owning element', async () => {
-  const text = 'Tooltip text'
-  const buttonLabel = 'Click Me'
-  const button = `<button>${buttonLabel}</button>`
-  renderTooltip(text, button)
+    await moveCursorAwayFromOwningElement()
 
-  await fireEvent.mouseEnter(screen.getByText(buttonLabel).parentElement)
+    expect(screen.getByText(text)).not.toBeVisible()
+  })
 
-  expect(screen.getByText(text)).toBeVisible()
+  it('hides after clicking owning element', async () => {
+    renderTooltip(text, button)
 
-  await fireEvent.mouseLeave(screen.getByText(buttonLabel).parentElement)
+    await hoverOverOwningElement()
 
-  expect(screen.getByText(text)).not.toBeVisible()
-})
+    expect(screen.getByText(text)).toBeVisible()
 
-it('hides after clicking owning element', async () => {
-  const text = 'Tooltip text'
-  const buttonLabel = 'Click Me'
-  const button = `<button>${buttonLabel}</button>`
-  renderTooltip(text, button)
+    await clickOwningElement()
 
-  await fireEvent.mouseEnter(screen.getByText(buttonLabel).parentElement)
-
-  expect(screen.getByText(text)).toBeVisible()
-
-  await fireEvent.click(screen.getByText(buttonLabel).parentElement)
-
-  expect(screen.getByText(text)).not.toBeVisible()
+    expect(screen.getByText(text)).not.toBeVisible()
+  })
 })
