@@ -34,11 +34,19 @@ function getOwningElement() {
   return screen.getByText(buttonLabel).parentElement
 }
 
+function assertTooltipHidden() {
+  expect(screen.getByText(text)).not.toBeVisible()
+}
+
+function assertTooltipShown() {
+  expect(screen.getByText(text)).toBeVisible()
+}
+
 describe('rendering', () => {
   it('renders hidden with specified text', () => {
     renderTooltip(text)
 
-    expect(screen.getByText(text)).not.toBeVisible()
+    assertTooltipHidden()
   })
 
   it('renders with owning element', () => {
@@ -54,7 +62,7 @@ describe('showing', () => {
 
     await hoverOverOwningElement()
 
-    expect(screen.getByText(text)).toBeVisible()
+    assertTooltipShown()
   })
 })
 
@@ -64,11 +72,11 @@ describe('hiding', () => {
 
     await hoverOverOwningElement()
 
-    expect(screen.getByText(text)).toBeVisible()
+    assertTooltipShown()
 
     await moveCursorAwayFromOwningElement()
 
-    expect(screen.getByText(text)).not.toBeVisible()
+    assertTooltipHidden()
   })
 
   it('hides after clicking owning element', async () => {
@@ -76,10 +84,10 @@ describe('hiding', () => {
 
     await hoverOverOwningElement()
 
-    expect(screen.getByText(text)).toBeVisible()
+    assertTooltipShown()
 
     await clickOwningElement()
 
-    expect(screen.getByText(text)).not.toBeVisible()
+    assertTooltipHidden()
   })
 })
