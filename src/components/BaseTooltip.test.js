@@ -66,13 +66,8 @@ describe('showing', () => {
   })
 })
 
-beforeEach(() => console.log('beforeEach'))
-afterEach(() => console.log('afterEach'))
-
 describe('hiding', () => {
   beforeEach(async () => {
-    console.log('hiding - beforeEach')
-
     renderTooltip(text, button)
 
     await hoverOverOwningElement()
@@ -80,21 +75,13 @@ describe('hiding', () => {
     assertTooltipShown()
   })
 
-  afterEach(() => {
-    console.log('hiding - afterEach')
-  })
-
   it('hides after moving cursor away from owning element', async () => {
-    console.log('hiding - test 1')
-
     await moveCursorAwayFromOwningElement()
 
     assertTooltipHidden()
   })
 
   it('hides after clicking owning element', async () => {
-    console.log('hiding - test 2')
-
     await clickOwningElement()
 
     assertTooltipHidden()
