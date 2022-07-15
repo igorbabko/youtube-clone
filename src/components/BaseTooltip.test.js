@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/vue'
+import userEvent from '@testing-library/user-event'
 import BaseTooltip from './BaseTooltip.vue'
 
 const text = 'Tooltip text'
@@ -27,7 +28,9 @@ function moveCursorAwayFromOwningElement() {
 }
 
 function clickOwningElement() {
-  return fireEvent.click(getOwningElement())
+  const user = userEvent.setup()
+
+  return user.click(getOwningElement())
 }
 
 function getOwningElement() {
