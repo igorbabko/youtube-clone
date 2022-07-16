@@ -1,11 +1,13 @@
 import {
   render,
   screen,
-  fireEvent,
   waitForElementToBeRemoved
 } from '@testing-library/vue'
+import userEvent from '@testing-library/user-event'
 import BaseModal from './BaseModal.vue'
 import icons from '../icons'
+
+const user = userEvent.setup()
 
 function renderModal(body = '', footer = '', withCloseButton = false) {
   const options = {
@@ -62,7 +64,7 @@ describe('closing', () => {
     const withCloseButton = true
     renderModal(body, '', withCloseButton)
 
-    fireEvent.click(screen.getByTestId('base-modal-button-close'))
+    user.click(screen.getByTestId('base-modal-button-close'))
 
     return assertModalClosed(body)
   })
@@ -70,7 +72,7 @@ describe('closing', () => {
   it('closes when clicking overlay', () => {
     renderModal(body)
 
-    fireEvent.click(screen.getByTestId('base-modal-overlay'))
+    user.click(screen.getByTestId('base-modal-overlay'))
 
     return assertModalClosed(body)
   })
@@ -83,7 +85,7 @@ describe('closing', () => {
     `
     renderModal(body, footer)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    user.click(screen.getByRole('button', { name: 'Cancel' }))
 
     return assertModalClosed(body)
   })
@@ -91,7 +93,9 @@ describe('closing', () => {
   it('closes when pressing esc key', () => {
     renderModal(body)
 
-    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Esc' })
+    screen.getByRole('dialog').focus()
+
+    user.keyboard('{Escape}')
 
     return assertModalClosed(body)
   })
