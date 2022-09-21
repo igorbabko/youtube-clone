@@ -21,26 +21,42 @@
         <section class="py-2">
           <ul>
             <VideoItemDropdownListItem label="Add to queue" icon="menuAlt3" />
+            <VideoItemDropdownListItem
+              label="Share"
+              icon="share"
+              @click="isShareModalOpen = true"
+            />
           </ul>
         </section>
       </div>
     </transition>
+    <teleport to="body">
+      <TheModalShare
+        v-if="isShareModalOpen"
+        @close="isShareModalOpen = false"
+      />
+    </teleport>
   </div>
 </template>
 
 <script>
 import BaseIcon from './BaseIcon.vue'
 import VideoItemDropdownListItem from './VideoItemDropdownListItem.vue'
+import TheModalShare from './TheModalShare.vue'
 
 export default {
+  inheritAttrs: false,
+
   components: {
     BaseIcon,
-    VideoItemDropdownListItem
+    VideoItemDropdownListItem,
+    TheModalShare
   },
 
   data () {
     return {
       isOpen: false,
+      isShareModalOpen: false,
       positionClasses: []
     }
   },
